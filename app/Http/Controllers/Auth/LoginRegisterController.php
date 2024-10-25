@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Buku;
+use App\Models\Peminjaman;
 
 
 class LoginRegisterController extends Controller
 {
     public function login()
     {
+        
         return view('auth.login');
     }
     public function register()
@@ -20,15 +23,27 @@ class LoginRegisterController extends Controller
         return view('auth.register');
     }
 
+    public function userHome(Request $request) {
+        $search = $request->input('search');
 
-    public function userHome() {
-        return view('user.home');
-    }
+        $data = Buku::where(function($query) use ($search) {
+            $query->where('judul_buku', 'LIKE', '%' .$search. '%');
+        })->paginate(5);
 
-    public function adminHome() 
-    {
-        return view('admin.home');
-}
+        return view('user.home', compact('data'));
+        }
+
+    public function adminHome(Request $request) {
+        $search = $request->input('search');
+
+        $data = User::where('level', 'admin')
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%');
+            })
+            ->paginate(5);
+        return view('admin.home', compact('data'));
+        }
+
 
     public function postRegister(Request $request) {
         $request->validate([
