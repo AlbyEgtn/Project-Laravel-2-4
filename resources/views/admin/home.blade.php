@@ -13,7 +13,7 @@
     <body>
         <nav class="navbar navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="/">Politeknik Negeri Bengkalis | D-IV Keamanan Sistem Informasi</a>
+                <a class="navbar-brand" href="/">Politeknik Negeri Bengkalis | D-IV Keamanan Sistem</a>
             </div>
         </nav>
         <div class="container">
